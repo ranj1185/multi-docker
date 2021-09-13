@@ -10,9 +10,9 @@ script:
 
 after_success:
   - docker build -t raj1185/multi-client ./client
-  - docker build -f raj1185/multi-nginx ./nginx
-  - docker build -f raj1185/multi-server ./server
-  - docker build -f raj1185/multi-worker ./worker
+  - docker build -t raj1185/multi-nginx ./nginx
+  - docker build -t raj1185/multi-server ./server
+  - docker build -t raj1185/multi-worker ./worker
 # login to docker registry
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # push images to a registery

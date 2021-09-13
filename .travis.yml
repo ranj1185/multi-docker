@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t raj1185/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run raj1185/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t raj1185/multi-client ./client
+  - docker build -f raj1185/multi-nginx ./nginx
+  - docker build -f raj1185/multi-server ./server
+  - docker build -f raj1185/multi-worker ./worker
+# login to docker registry
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# push images to a registery
+  - docker push raj1185/multi-client
+  - docker push raj1185/multi-nginx
+  - docker push raj1185/multi-server
+  - docker push raj1185/multi-worker

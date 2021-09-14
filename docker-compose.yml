@@ -5,7 +5,7 @@ services:
     mem_limit: 128m
     hostname: client
   server:
-    image: "cygnetops/multi-server"
+    image: "raj1185/multi-server"
     mem_limit: 128m
     hostname: api
     environment:
@@ -17,14 +17,14 @@ services:
       - PGPASSWORD=$PGPASSWORD
       - PGPORT=$PGPORT
   worker:
-    image: "cygnetops/multi-worker"
+    image: "raj1185/multi-worker"
     mem_limit: 128m
     hostname: worker
     environment:
       - REDIS_HOST=$REDIS_HOST
       - REDIS_PORT=$REDIS_PORT
   nginx:
-    image: "cygnetops/multi-nginx"
+    image: "raj1185/multi-nginx"
     mem_limit: 128m
     hostname: nginx
     ports:
